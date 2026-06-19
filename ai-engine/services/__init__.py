@@ -1,0 +1,1 @@
+# CineSync AI - Services module

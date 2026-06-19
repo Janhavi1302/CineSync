@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CineSync AI — Documentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  
+  :root {
+    --blue: #00d4ff; --purple: #7c3aed; --green: #22c55e;
+    --red: #ef4444; --amber: #f59e0b; --pink: #ec4899;
+    --bg: #0a0a0f; --card: #12121a; --border: #1e1e2e;
+  }
+  
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--bg); color:#e0e0e8; line-height:1.7; }
+  
+  .container { max-width:900px; margin:0 auto; padding:40px 50px; }
+  
+  /* Hero */
+  .hero { text-align:center; padding:60px 20px 40px; background:linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08)); border-radius:24px; border:1px solid var(--border); margin-bottom:48px; }
+  .hero h1 { font-size:48px; font-weight:800; margin-bottom:8px; }
+  .hero h1 .blue { background:linear-gradient(135deg,var(--blue),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero p { color:#888; font-size:16px; }
+  .hero .badge { display:inline-block; background:var(--blue); color:#000; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; margin-top:12px; letter-spacing:1px; }
+
+  /* Sections */
+  h2 { font-size:28px; font-weight:700; margin:48px 0 20px; padding-bottom:12px; border-bottom:2px solid var(--border); }
+  h2 .icon { margin-right:8px; }
+  h3 { font-size:18px; font-weight:600; margin:28px 0 12px; color:var(--blue); }
+  p, li { font-size:14px; color:#b0b0c0; }
+  
+  /* Tables */
+  table { width:100%; border-collapse:collapse; margin:16px 0 24px; font-size:13px; }
+  th { background:linear-gradient(135deg, rgba(0,212,255,0.12), rgba(124,58,237,0.12)); color:var(--blue); text-align:left; padding:10px 14px; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+  td { padding:9px 14px; border-bottom:1px solid rgba(255,255,255,0.04); color:#c0c0d0; }
+  tr:hover td { background:rgba(255,255,255,0.02); }
+  
+  /* Code */
+  code { font-family:'JetBrains Mono',monospace; background:rgba(0,212,255,0.08); color:var(--blue); padding:2px 6px; border-radius:4px; font-size:12px; }
+  pre { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; overflow-x:auto; margin:16px 0; font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.6; color:#c0c0d0; }
+  
+  /* Cards */
+  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; margin:16px 0; }
+  .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+  .card-sm { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+  .card-sm .label { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:#666; margin-bottom:4px; }
+  .card-sm .value { font-size:22px; font-weight:700; }
+  .card-sm .value.blue { color:var(--blue); }
+  .card-sm .value.green { color:var(--green); }
+  .card-sm .value.purple { color:var(--purple); }
+  .card-sm .value.amber { color:var(--amber); }
+  
+  /* Flow */
+  .flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:20px 0; }
+  .flow-step { background:linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1)); border:1px solid rgba(0,212,255,0.2); border-radius:10px; padding:10px 16px; font-size:12px; font-weight:600; color:var(--blue); }
+  .flow-arrow { color:#444; font-size:18px; }
+  
+  /* Tags */
+  .tag { display:inline-block; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:600; margin:2px; }
+  .tag-blue { background:rgba(0,212,255,0.1); color:var(--blue); border:1px solid rgba(0,212,255,0.2); }
+  .tag-green { background:rgba(34,197,94,0.1); color:var(--green); border:1px solid rgba(34,197,94,0.2); }
+  .tag-purple { background:rgba(124,58,237,0.1); color:var(--purple); border:1px solid rgba(124,58,237,0.2); }
+  .tag-amber { background:rgba(245,158,11,0.1); color:var(--amber); border:1px solid rgba(245,158,11,0.2); }
+  .tag-red { background:rgba(239,68,68,0.1); color:var(--red); border:1px solid rgba(239,68,68,0.2); }
+  .tag-pink { background:rgba(236,72,153,0.1); color:var(--pink); border:1px solid rgba(236,72,153,0.2); }
+  
+  /* Keyboard */
+  kbd { display:inline-block; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:5px; padding:2px 8px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#ccc; min-width:28px; text-align:center; }
+  
+  /* Architecture box */
+  .arch-box { border:1px solid var(--border); border-radius:12px; padding:16px; margin:8px 0; }
+  .arch-box.electron { border-color:rgba(0,212,255,0.3); background:rgba(0,212,255,0.03); }
+  .arch-box.python { border-color:rgba(124,58,237,0.3); background:rgba(124,58,237,0.03); }
+  .arch-title { font-size:13px; font-weight:700; margin-bottom:8px; }
+  .arch-title.blue { color:var(--blue); }
+  .arch-title.purple { color:var(--purple); }
+
+  /* Print */
+  @media print {
+    body { background:#fff; color:#111; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .container { padding:20px; }
+    td, p, li { color:#333; }
+    .hero { break-after:avoid; }
+    h2 { break-after:avoid; }
+    table { break-inside:avoid; }
+    .card, .card-sm { break-inside:avoid; }
+  }
+  
+  .footer { text-align:center; padding:40px 0 20px; color:#444; font-size:12px; border-top:1px solid var(--border); margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1><span class="blue">CineSync</span> AI</h1>
+  <p>AI-native real-time cinematic dubbing platform</p>
+  <div class="badge">v1.0.0 • DOCUMENTATION</div>
+</div>
+
+<!-- FEATURES -->
+<h2><span class="icon">✨</span> Features</h2>
+<table>
+  <tr><th>Feature</th><th>Description</th><th>Tech</th></tr>
+  <tr><td>🎙️ Speech Recognition</td><td>Real-time GPU-accelerated STT</td><td><span class="tag tag-blue">faster-whisper</span></td></tr>
+  <tr><td>🌐 Translation</td><td>Multi-language translation</td><td><span class="tag tag-green">deep-translator</span></td></tr>
+  <tr><td>🗣️ Neural TTS</td><td>Premium voices with emotion</td><td><span class="tag tag-purple">Edge TTS</span></td></tr>
+  <tr><td>🎭 Emotion Detection</td><td>Keyword + punctuation classifier</td><td><span class="tag tag-pink">Custom</span></td></tr>
+  <tr><td>👥 Speaker ID</td><td>Per-segment pitch gender detection</td><td><span class="tag tag-amber">Pitch Analysis</span></td></tr>
+  <tr><td>🔒 Voice Locking</td><td>Consistent voice per character</td><td><span class="tag tag-red">Persistent Map</span></td></tr>
+  <tr><td>🎵 Audio Mixing</td><td>Background audio preservation</td><td><span class="tag tag-blue">pydub</span></td></tr>
+  <tr><td>📸 Screenshot</td><td>Capture video frames as PNG</td><td><span class="tag tag-green">Canvas API</span></td></tr>
+  <tr><td>⬇️ Export Audio</td><td>Download dubbed track</td><td><span class="tag tag-purple">WAV</span></td></tr>
+  <tr><td>📊 Live Metrics</td><td>FPS, latency, sync accuracy</td><td><span class="tag tag-amber">WebSocket</span></td></tr>
+</table>
+
+<!-- ARCHITECTURE -->
+<h2><span class="icon">🏗️</span> Architecture</h2>
+<div class="arch-box electron">
+  <div class="arch-title blue">⚡ Electron Desktop App (Frontend)</div>
+  <div class="card-grid">
+    <div class="card-sm"><div class="label">Framework</div><div class="value blue">React 18</div></div>
+    <div class="card-sm"><div class="label">State</div><div class="value purple">Zustand 5</div></div>
+    <div class="card-sm"><div class="label">Build</div><div class="value green">Vite 5</div></div>
+    <div class="card-sm"><div class="label">Styling</div><div class="value amber">TailwindCSS 3</div></div>
+  </div>
+</div>
+<p style="text-align:center;font-size:20px;color:#444;margin:8px 0;">⬇ WebSocket (ws://localhost:8765/ws) ⬆</p>
+<div class="arch-box python">
+  <div class="arch-title purple">🐍 Python AI Engine (Backend)</div>
+  <div class="card-grid">
+    <div class="card-sm"><div class="label">Server</div><div class="value purple">FastAPI</div></div>
+    <div class="card-sm"><div class="label">STT</div><div class="value blue">Whisper</div></div>
+    <div class="card-sm"><div class="label">TTS</div><div class="value green">Edge TTS</div></div>
+    <div class="card-sm"><div class="label">GPU</div><div class="value amber">GTX 1650</div></div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<h2><span class="icon">🧠</span> AI Dubbing Pipeline</h2>
+<div class="flow">
+  <div class="flow-step">📹 Video File</div><span class="flow-arrow">→</span>
+  <div class="flow-step">🔊 Extract Audio</div><span class="flow-arrow">→</span>
+  <div class="flow-step">🎙️ STT (Whisper)</div><span class="flow-arrow">→</span>
+  <div class="flow-step">👤 Gender Detect</div><span class="flow-arrow">→</span>
+  <div class="flow-step">🎭 Emotion</div><span class="flow-arrow">→</span>
+  <div class="flow-step">🌐 Translate</div><span class="flow-arrow">→</span>
+  <div class="flow-step">🗣️ TTS</div><span class="flow-arrow">→</span>
+  <div class="flow-step">🎵 Mix</div><span class="flow-arrow">→</span>
+  <div class="flow-step">✅ dubbed_track.wav</div>
+</div>
+
+<h3>Voice Assignment Logic</h3>
+<div class="card">
+  <p><strong>Step 1 — Gender Detection:</strong> Each speech segment is isolated using STT timestamps. Autocorrelation pitch analysis runs on the voice only. Median F0 > 165 Hz → female, ≤ 165 Hz → male.</p>
+  <br>
+  <p><strong>Step 2 — Speaker Tracking:</strong> Segments within 1.5s = same speaker. Gap > 1.5s = new speaker. IDs: <code>speaker_0</code>, <code>speaker_1</code>, etc.</p>
+  <br>
+  <p><strong>Step 3 — Voice Locking:</strong> Once a gender is assigned, it is <strong>permanently locked</strong>. <code>speaker_0: male → MadhurNeural</code> never changes.</p>
+</div>
+
+<!-- LANGUAGES -->
+<h2><span class="icon">🌍</span> Supported Languages & Voices</h2>
+<table>
+  <tr><th>Language</th><th>Code</th><th>Male Voice</th><th>Female Voice</th></tr>
+  <tr><td>🇮🇳 Hindi</td><td><code>hi</code></td><td>MadhurNeural</td><td>SwaraNeural</td></tr>
+  <tr><td>🇺🇸 English</td><td><code>en</code></td><td>GuyNeural, DavisNeural</td><td>JennyNeural, AriaNeural</td></tr>
+  <tr><td>🇪🇸 Spanish</td><td><code>es</code></td><td>AlvaroNeural</td><td>ElviraNeural</td></tr>
+  <tr><td>🇫🇷 French</td><td><code>fr</code></td><td>HenriNeural</td><td>DeniseNeural</td></tr>
+  <tr><td>🇩🇪 German</td><td><code>de</code></td><td>ConradNeural</td><td>KatjaNeural</td></tr>
+  <tr><td>🇯🇵 Japanese</td><td><code>ja</code></td><td>KeitaNeural</td><td>NanamiNeural</td></tr>
+  <tr><td>🇰🇷 Korean</td><td><code>ko</code></td><td>InJoonNeural</td><td>SunHiNeural</td></tr>
+  <tr><td>🇨🇳 Chinese</td><td><code>zh</code></td><td>YunxiNeural</td><td>XiaoxiaoNeural</td></tr>
+  <tr><td>🇸🇦 Arabic</td><td><code>ar</code></td><td>HamedNeural</td><td>ZariyahNeural</td></tr>
+  <tr><td>🇧🇷 Portuguese</td><td><code>pt</code></td><td>AntonioNeural</td><td>FranciscaNeural</td></tr>
+  <tr><td>🇷🇺 Russian</td><td><code>ru</code></td><td>DmitryNeural</td><td>SvetlanaNeural</td></tr>
+</table>
+
+<!-- PROJECT STRUCTURE -->
+<h2><span class="icon">📁</span> Project Structure</h2>
+<pre>
+cinesync/
+├── ai-engine/                    <span style="color:#666">← Python AI Backend</span>
+│   ├── main.py                   <span style="color:var(--blue)">FastAPI + WebSocket server</span>
+│   ├── config.py                 <span style="color:var(--blue)">Hardware settings</span>
+│   ├── core/
+│   │   ├── pipeline.py           <span style="color:var(--purple)">Pipeline orchestrator</span>
+│   │   ├── media_processor.py    <span style="color:var(--purple)">FFmpeg extraction</span>
+│   │   └── ws_manager.py         <span style="color:var(--purple)">Connection manager</span>
+│   └── services/
+│       ├── dubbing_pipeline.py   <span style="color:var(--green)">STT→TTS→Mix pipeline</span>
+│       ├── stt_service.py        <span style="color:var(--green)">faster-whisper</span>
+│       ├── tts_service.py        <span style="color:var(--green)">Edge TTS + SSML</span>
+│       ├── translation_service.py<span style="color:var(--green)">Google Translate</span>
+│       ├── emotion.py            <span style="color:var(--green)">Emotion classifier</span>
+│       └── speaker_diarization.py<span style="color:var(--green)">Speaker ID</span>
+│
+├── src/                          <span style="color:#666">← Electron Frontend</span>
+│   ├── main/index.js             <span style="color:var(--blue)">Electron main process</span>
+│   ├── preload/index.js          <span style="color:var(--blue)">IPC bridge</span>
+│   └── renderer/src/
+│       ├── App.jsx               <span style="color:var(--amber)">Root + shortcuts</span>
+│       ├── components/
+│       │   ├── VideoPlayer/      <span style="color:var(--amber)">Player + subtitles</span>
+│       │   ├── ControlBar/       <span style="color:var(--amber)">Controls + features</span>
+│       │   ├── Sidebar/          <span style="color:var(--amber)">Chars/Dub/Diag</span>
+│       │   ├── Timeline/         <span style="color:var(--amber)">Waveform + seek</span>
+│       │   └── TitleBar/         <span style="color:var(--amber)">Window chrome</span>
+│       ├── hooks/                <span style="color:var(--pink)">useMediaPlayer, useWebSocket</span>
+│       └── stores/               <span style="color:var(--pink)">Zustand playerStore</span>
+│
+├── package.json
+├── start.ps1                     <span style="color:var(--green)">Launch script</span>
+└── README.md
+</pre>
+
+<!-- WEBSOCKET -->
+<h2><span class="icon">🔌</span> WebSocket Protocol</h2>
+<h3>Client → Server</h3>
+<table>
+  <tr><th>Message</th><th>Data</th><th>Description</th></tr>
+  <tr><td><code>load_media</code></td><td><code>{ filePath }</code></td><td>Load a video file</td></tr>
+  <tr><td><code>start_dubbing</code></td><td><code>{ language }</code></td><td>Start dubbing pipeline</td></tr>
+  <tr><td><code>stop_dubbing</code></td><td><code>{}</code></td><td>Stop dubbing</td></tr>
+  <tr><td><code>start_analysis</code></td><td><code>{}</code></td><td>Start AI analysis</td></tr>
+  <tr><td><code>playback_time</code></td><td><code>{ time }</code></td><td>Current position</td></tr>
+  <tr><td><code>seek</code></td><td><code>{ time }</code></td><td>Seek to timestamp</td></tr>
+  <tr><td><code>get_characters</code></td><td><code>{}</code></td><td>Request characters</td></tr>
+  <tr><td><code>rename_character</code></td><td><code>{ id, name }</code></td><td>Rename character</td></tr>
+</table>
+
+<h3>Server → Client</h3>
+<table>
+  <tr><th>Message</th><th>Data</th><th>Description</th></tr>
+  <tr><td><code>connected</code></td><td><code>{ gpu, vram }</code></td><td>Connection info</td></tr>
+  <tr><td><code>dubbing_status</code></td><td><code>{ stage, progress }</code></td><td>Dubbing progress</td></tr>
+  <tr><td><code>live_transcript</code></td><td><code>{ text, emotion }</code></td><td>Real-time transcript</td></tr>
+  <tr><td><code>dubbed_track_ready</code></td><td><code>{ audioPath }</code></td><td>Dubbing complete</td></tr>
+  <tr><td><code>characters_detected</code></td><td><code>[{ id, name }]</code></td><td>Detected speakers</td></tr>
+  <tr><td><code>debug_metrics</code></td><td><code>{ fps, latency }</code></td><td>Performance data</td></tr>
+</table>
+
+<!-- KEYBOARD -->
+<h2><span class="icon">⌨️</span> Keyboard Shortcuts</h2>
+<table>
+  <tr><th>Key</th><th>Action</th><th>Key</th><th>Action</th></tr>
+  <tr><td><kbd>Space</kbd></td><td>Play / Pause</td><td><kbd>F</kbd></td><td>Fullscreen</td></tr>
+  <tr><td><kbd>M</kbd></td><td>Mute / Unmute</td><td><kbd>D</kbd></td><td>Toggle Dubbing</td></tr>
+  <tr><td><kbd>←</kbd></td><td>Seek -5s</td><td><kbd>O</kbd></td><td>AI Overlay</td></tr>
+  <tr><td><kbd>→</kbd></td><td>Seek +5s</td><td><kbd>B</kbd></td><td>Sidebar</td></tr>
+</table>
+
+<!-- SETUP -->
+<h2><span class="icon">🚀</span> Quick Start</h2>
+<div class="card">
+<pre style="background:transparent;border:none;padding:0;margin:0;">
+<span style="color:var(--green)"># 1. Install Node dependencies</span>
+npm install
+
+<span style="color:var(--green)"># 2. Install Python dependencies</span>
+cd ai-engine
+pip install torch --index-url https://download.pytorch.org/whl/cu121
+pip install -r requirements.txt
+
+<span style="color:var(--green)"># 3. Start everything</span>
+cd ..
+.\start.ps1
+
+<span style="color:var(--green)"># Or manually:</span>
+<span style="color:#666"># Terminal 1:</span> cd ai-engine && python main.py
+<span style="color:#666"># Terminal 2:</span> npm run dev
+</pre>
+</div>
+
+<!-- CONFIG -->
+<h2><span class="icon">⚙️</span> Configuration</h2>
+<div class="card-grid">
+  <div class="card-sm"><div class="label">GPU</div><div class="value amber">GTX 1650</div></div>
+  <div class="card-sm"><div class="label">VRAM</div><div class="value blue">4 GB</div></div>
+  <div class="card-sm"><div class="label">Whisper Model</div><div class="value green">tiny (int8)</div></div>
+  <div class="card-sm"><div class="label">Chunk Size</div><div class="value purple">5 seconds</div></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>CineSync AI v1.0.0 — Built by <strong>Abhay Petkar</strong></p>
+  <p style="margin-top:4px;color:#333;">Press <kbd>Ctrl</kbd>+<kbd>P</kbd> to save as PDF</p>
+</div>
+
+</div>
+</body>
+</html>

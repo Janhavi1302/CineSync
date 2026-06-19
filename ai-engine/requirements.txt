@@ -1,0 +1,42 @@
+# CineSync AI — Python Dependencies
+# Supports both local GPU and Modal cloud GPU modes
+
+# Server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+websockets>=12.0
+
+# Modal Cloud GPU
+modal>=0.73.0
+
+# AI/ML Core (only needed for local GPU mode)
+# torch  # Install separately with CUDA: pip install torch --index-url https://download.pytorch.org/whl/cu121
+# torchaudio
+
+# Speech Recognition (runs on Modal in cloud mode, local in local mode)
+faster-whisper>=1.0.0
+
+# Speaker Diarization (CPU)
+# pyannote.audio>=3.1  # Phase 2
+
+# Translation
+deep-translator>=1.11.0
+
+# TTS — Microsoft Edge Neural Voices (fallback)
+edge-tts>=6.1.0
+
+# Bhashini — Indian Government AI platform (Translation + TTS for Indian languages)
+aiohttp>=3.9.0
+
+# Face Detection (runs on Modal in cloud mode)
+# ultralytics>=8.0  # Phase 2 / Modal only
+
+# Audio Processing
+numpy>=1.24.0
+scipy>=1.11.0
+pydub>=0.25.0
+imageio-ffmpeg>=0.4.0
+
+# Utilities
+python-multipart>=0.0.6
+pydantic>=2.0.0

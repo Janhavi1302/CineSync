@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
+dist-installer/
+
+# AI engine build artifacts & binaries
+ai-engine/build/
+ai-engine/dist/
+*.exe
+*.pyz
+*.pkg
+*.pyc
+*.pyo
+
+# Python
+__pycache__/
+venv/
+.venv/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
